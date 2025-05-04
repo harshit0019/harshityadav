@@ -14,53 +14,59 @@ export function SkillsSection() {
   const skills = [
     {
       title: "Programming & Database",
-      icon: <Code className="text-white text-2xl" />,
+      icon: <Code className="text-white text-lg" />,
+      iconColor: "bg-purple-500",
       skills: [
-        { name: "Python", percentage: 90 },
-        { name: "SQL (PostgreSQL, MSSQL)", percentage: 85 }
+        { name: "Python", percentage: 85 },
+        { name: "SQL (PostgreSQL, MSSQL)", percentage: 80 }
       ]
     },
     {
-      title: "Front-End",
-      icon: <Layout className="text-white text-2xl" />,
+      title: "Front-End Development",
+      icon: <Layout className="text-white text-lg" />,
+      iconColor: "bg-pink-500",
       skills: [
-        { name: "HTML & CSS", percentage: 92 },
-        { name: "Tailwind CSS", percentage: 88 },
-        { name: "Streamlit", percentage: 85 }
+        { name: "HTML & CSS", percentage: 75 },
+        { name: "Tailwind CSS", percentage: 70 },
+        { name: "Streamlit", percentage: 80 }
       ]
     },
     {
-      title: "Data Analysis",
-      icon: <BarChart3 className="text-white text-2xl" />,
+      title: "Data Analysis & Visualization",
+      icon: <BarChart3 className="text-white text-lg" />,
+      iconColor: "bg-blue-500",
       skills: [
         { name: "Power BI", percentage: 90 },
-        { name: "Excel", percentage: 95 },
-        { name: "Google Sheets", percentage: 92 }
+        { name: "Excel & Google Sheets", percentage: 85 }
       ]
     },
     {
-      title: "AI Tools & Automation",
-      icon: <Bot className="text-white text-2xl" />,
+      title: "AI Tools and Automation",
+      icon: <Bot className="text-white text-lg" />,
+      iconColor: "bg-orange-500",
       skills: [
-        { name: "Prompt Engineering", percentage: 88 },
-        { name: "ChatGPT", percentage: 95 },
-        { name: "Replit AI & Cursor AI", percentage: 85 }
+        { name: "Prompt Engineering", percentage: 85 },
+        { name: "ChatGPT, Replit AI, Cursor AI", percentage: 80 }
       ]
     },
     {
       title: "Sustainability",
-      icon: <Leaf className="text-white text-2xl" />,
+      icon: <Leaf className="text-white text-lg" />,
+      iconColor: "bg-green-500",
       skills: [
         { name: "Carbon Footprint Tracking", percentage: 90 },
-        { name: "Emission Analysis", percentage: 85 }
+        { name: "Scope 1, 2, 3 Emissions Analysis", percentage: 85 }
       ]
     },
     {
       title: "Certifications",
-      icon: <Award className="text-white text-2xl" />,
+      icon: <Award className="text-white text-lg" />,
+      iconColor: "bg-purple-500",
       skills: [
-        { name: "Udemy Courses", percentage: 100 },
-        { name: "Internshala Courses", percentage: 100 }
+        { name: "PostgreSQL and MySQL course from Udemy", percentage: 100, isCertification: true },
+        { name: "Microsoft Excel - Excel from Beginner to Advance from Udemy", percentage: 100, isCertification: true },
+        { name: "Programming with Python from Internshala Trainings", percentage: 100, isCertification: true }, 
+        { name: "Web Development from Internshala Trainings", percentage: 100, isCertification: true }
       ]
     }
   ];
@@ -78,7 +84,7 @@ export function SkillsSection() {
           My <span className="gradient-text">Skills</span>
         </motion.h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skill, index) => (
             <motion.div
               key={skill.title}
@@ -89,7 +95,8 @@ export function SkillsSection() {
             >
               <SkillCard 
                 title={skill.title} 
-                icon={skill.icon} 
+                icon={skill.icon}
+                iconColor={skill.iconColor}
                 skills={skill.skills} 
               />
             </motion.div>
