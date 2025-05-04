@@ -18,8 +18,13 @@ export function HeroSection() {
   
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16">
-      {/* Semi-transparent overlay for readability over particle background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/60 to-gray-50/60 dark:from-gray-900/70 dark:to-gray-800/70 backdrop-blur-sm"></div>
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50 to-gray-50 dark:from-gray-900 dark:to-gray-800 opacity-70"></div>
+      
+      {/* Animated orbs */}
+      <div className="floating-orb-1"></div>
+      <div className="floating-orb-2"></div>
+      <div className="floating-orb-3"></div>
 
       {/* Main content container */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
