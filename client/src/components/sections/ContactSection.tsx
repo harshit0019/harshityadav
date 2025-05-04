@@ -40,20 +40,23 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // Add additional fields needed by Web3Forms
+      // Connect directly to Web3Forms API (bypassing server proxy)
+      // This is more reliable for Vercel deployments
       const formData = {
         ...data,
         access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8", // Web3Forms API key
-        from_name: data.name,
         subject: data.subject || "Contact Form Submission",
+        from_name: data.name,
         botcheck: "",  // Honeypot field for spam prevention
       };
       
-      // Use the web3forms-proxy endpoint which is known to work
-      const response = await fetch("/api/web3forms-proxy", {
+      console.log("Submitting form directly to Web3Forms API");
+      
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify(formData)
       });
@@ -61,12 +64,11 @@ export function ContactSection() {
       let result;
       try {
         result = await response.json();
+        console.log("Form submission response:", result);
       } catch (e) {
         console.error("Failed to parse JSON response:", e);
         throw new Error("Invalid response from server");
       }
-      
-      console.log("Form submission response:", result);
       
       if (response.ok && result.success) {
         // If successful, reset the form and show success message
