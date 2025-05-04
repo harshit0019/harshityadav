@@ -31,10 +31,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time with a slightly longer duration for a better effect
+    // Simulate loading time with a longer duration to show full animation sequence
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 4500);
     
     return () => clearTimeout(timer);
   }, []);
@@ -52,167 +52,124 @@ function App() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                {/* Animated background shapes */}
-                <div className="loader-background">
+                {/* Modern code-themed loading animation */}
+                <div className="code-loader-container">
                   <motion.div 
-                    className="loader-shape loader-shape-1"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.5 }}
-                    transition={{ duration: 0.8, delay: 0.1 }}
-                  />
+                    className="code-loader-logo"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <motion.div
+                      className="code-logo-inner"
+                      initial={{ rotateY: 0 }}
+                      animate={{ rotateY: 360 }}
+                      transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <motion.path 
+                          d="M40 20L15 60L40 100" 
+                          stroke="url(#grad1)" 
+                          strokeWidth="8" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{ duration: 1.5, delay: 0.2 }}
+                        />
+                        <motion.path 
+                          d="M80 20L105 60L80 100" 
+                          stroke="url(#grad2)" 
+                          strokeWidth="8" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{ duration: 1.5, delay: 0.6 }}
+                        />
+                        <motion.path 
+                          d="M65 15L55 105" 
+                          stroke="url(#grad3)" 
+                          strokeWidth="8" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{ duration: 1.5, delay: 1 }}
+                        />
+                        <defs>
+                          <linearGradient id="grad1" x1="15" y1="60" x2="40" y2="60" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#3B82F6" />
+                            <stop offset="1" stopColor="#8B5CF6" />
+                          </linearGradient>
+                          <linearGradient id="grad2" x1="80" y1="60" x2="105" y2="60" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#8B5CF6" />
+                            <stop offset="1" stopColor="#EC4899" />
+                          </linearGradient>
+                          <linearGradient id="grad3" x1="60" y1="15" x2="60" y2="105" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#06B6D4" />
+                            <stop offset="1" stopColor="#3B82F6" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </motion.div>
+                  </motion.div>
+                  
                   <motion.div 
-                    className="loader-shape loader-shape-2"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.5 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                  />
-                  <motion.div 
-                    className="loader-shape loader-shape-3"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.5 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                  />
-                  <motion.div 
-                    className="loader-shape loader-shape-4"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.5 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  />
-                  <motion.div 
-                    className="loader-shape loader-shape-5"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.5 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                  />
-                </div>
-                
-                {/* Loader content */}
-                <div className="loader-content">
-                  <motion.div 
+                    className="code-loader-text"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-center mb-8"
+                    transition={{ duration: 0.6, delay: 1.5 }}
                   >
                     <motion.h2 
-                      initial={{ scale: 0.9 }}
-                      animate={{ scale: 1.05 }}
-                      transition={{ 
-                        duration: 1.5, 
-                        repeat: Infinity, 
-                        repeatType: "reverse" 
-                      }}
-                      className="text-4xl md:text-5xl font-bold gradient-text mb-3"
+                      className="text-4xl md:text-5xl font-bold gradient-text mb-2"
                     >
-                      Welcome
+                      Harshit Yadav
                     </motion.h2>
-                    <motion.p 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.8, delay: 0.6 }}
-                      className="text-xl md:text-2xl secondary-gradient-text font-semibold"
-                    >
-                      Harshit Yadav's Portfolio
-                    </motion.p>
+                    
+                    {/* Typing animation effect */}
+                    <div className="typing-container">
+                      <motion.div
+                        className="typing-text text-xl md:text-2xl secondary-gradient-text font-medium mb-8"
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{ 
+                          duration: 1.2, 
+                          delay: 1.8,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        Software Developer & Prompt Engineer
+                      </motion.div>
+                      <motion.span
+                        className="typing-cursor"
+                        animate={{ opacity: [1, 0, 1] }}
+                        transition={{ duration: 0.8, repeat: Infinity }}
+                      />
+                    </div>
                   </motion.div>
-                  <div className="relative">
+                  
+                  {/* Code lines animation */}
+                  <div className="code-lines-container">
                     <motion.div 
-                      className="loader-circle"
-                      initial={{ scale: 0.8, opacity: 0.8 }}
-                      animate={{ 
-                        scale: [0.8, 1.2, 0.8],
-                        opacity: [0.8, 1, 0.8],
-                        rotate: [0, 360]
-                      }}
-                      transition={{
-                        duration: 2,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                        repeatType: "loop"
-                      }}
+                      className="code-line"
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: "70%", opacity: 0.6 }}
+                      transition={{ duration: 0.7, delay: 2.2 }}
                     />
-                    
-                    {/* Extra circular elements for more dynamic loading effect */}
                     <motion.div 
-                      className="loader-circle-outer"
-                      initial={{ scale: 0.5, opacity: 0.4 }}
-                      animate={{ 
-                        scale: [0.5, 1.4, 0.5],
-                        opacity: [0.4, 0.6, 0.4],
-                        rotate: [0, -360]
-                      }}
-                      transition={{
-                        duration: 3,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                        repeatType: "loop"
-                      }}
+                      className="code-line"
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: "40%", opacity: 0.6 }}
+                      transition={{ duration: 0.5, delay: 2.4 }}
                     />
-                    
-                    {/* Inner pulsing dot */}
                     <motion.div 
-                      className="loader-circle-inner"
-                      initial={{ scale: 0.2, opacity: 0.9 }}
-                      animate={{ 
-                        scale: [0.2, 0.5, 0.2],
-                        opacity: [0.9, 1, 0.9],
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                        repeatType: "loop"
-                      }}
+                      className="code-line"
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: "60%", opacity: 0.6 }}
+                      transition={{ duration: 0.6, delay: 2.6 }}
                     />
                   </div>
-                  
-                  {/* Enhanced code brackets animation */}
-                  <motion.div 
-                    className="mt-8 text-4xl text-primary dark:text-primary relative"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                  >
-                    <motion.span
-                      initial={{ x: -25, opacity: 0 }}
-                      animate={{ x: 0, opacity: [0, 1, 0.8, 1] }}
-                      transition={{ 
-                        duration: 0.7, 
-                        delay: 0.7,
-                        opacity: { duration: 1.2, repeat: Infinity, repeatType: "reverse" }
-                      }}
-                      className="text-secondary"
-                    >
-                      {"<"}
-                    </motion.span>
-                    <motion.span
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 0.9 }}
-                      className="mx-1 text-tertiary font-bold text-2xl"
-                    >
-                      Developer
-                    </motion.span>
-                    <motion.span
-                      initial={{ x: 25, opacity: 0 }}
-                      animate={{ x: 0, opacity: [0, 1, 0.8, 1] }}
-                      transition={{ 
-                        duration: 0.7, 
-                        delay: 0.7,
-                        opacity: { duration: 1.2, repeat: Infinity, repeatType: "reverse" }
-                      }}
-                      className="text-secondary"
-                    >
-                      {"/>"}
-                    </motion.span>
-                    
-                    {/* Cursor blinking effect */}
-                    <motion.span
-                      className="absolute -bottom-1 right-[-14px] h-6 w-3 bg-primary"
-                      animate={{ opacity: [1, 0, 1] }}
-                      transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.2 }}
-                    />
-                  </motion.div>
                 </div>
               </motion.div>
             ) : (
