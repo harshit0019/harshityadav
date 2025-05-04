@@ -52,11 +52,6 @@ export default function InteractiveBackground() {
   const animationRef = useRef<number>(0);
   const isPausedRef = useRef<boolean>(false);
   
-  // Format colors with proper hash prefix to avoid errors
-  const formatColor = (color: string) => {
-    return color.startsWith('#') ? color : `#${color}`;
-  };
-  
   // Initialize particles and orbs
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -69,21 +64,25 @@ export default function InteractiveBackground() {
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      
+      // Re-initialize particles and orbs on resize
+      createParticles();
+      createFloatingOrbs();
     };
     
     window.addEventListener('resize', handleResize);
     handleResize();
     
     // Create particles
-    const createParticles = () => {
+    function createParticles() {
       const particles: Particle[] = [];
       const count = Math.min(Math.floor(window.innerWidth * window.innerHeight / 12000), 150);
       
-      const isDark = theme === 'dark';
-      const primaryColor = isDark ? '#3B82F6' : '#3B82F6';
-      const secondaryColor = isDark ? '#8B5CF6' : '#8B5CF6';
-      const accentColor = isDark ? '#06B6D4' : '#06B6D4';
-      const tertiaryColor = isDark ? '#EC4899' : '#EC4899'; // Adding pink for more variety
+      // Fixed colors for consistency
+      const primaryColor = '#3B82F6'; // Blue
+      const secondaryColor = '#8B5CF6'; // Purple
+      const accentColor = '#06B6D4'; // Cyan
+      const tertiaryColor = '#EC4899'; // Pink
       const colors = [primaryColor, secondaryColor, accentColor, tertiaryColor];
       
       // Create particles with varying sizes and speeds
@@ -126,16 +125,16 @@ export default function InteractiveBackground() {
       }
       
       particlesRef.current = particles;
-    };
+    }
     
     // Create floating orbs
-    const createFloatingOrbs = () => {
-      const isDark = theme === 'dark';
-      const primaryColor = isDark ? '#3B82F6' : '#3B82F6';
-      const secondaryColor = isDark ? '#8B5CF6' : '#8B5CF6';
-      const accentColor = isDark ? '#06B6D4' : '#06B6D4';
-      const tertiaryColor = isDark ? '#EC4899' : '#EC4899'; // Pink accent
-      const quaternaryColor = isDark ? '#10B981' : '#10B981'; // Green accent
+    function createFloatingOrbs() {
+      // Fixed colors for consistency
+      const primaryColor = '#3B82F6'; // Blue
+      const secondaryColor = '#8B5CF6'; // Purple
+      const accentColor = '#06B6D4'; // Cyan
+      const tertiaryColor = '#EC4899'; // Pink
+      const quaternaryColor = '#10B981'; // Green
       
       const orbs: FloatingOrb[] = [
         // Top-right primary orb
@@ -231,23 +230,13 @@ export default function InteractiveBackground() {
       ];
       
       floatingOrbsRef.current = orbs;
-    };
-    
-    // Initialize
-    createParticles();
-    createFloatingOrbs();
-    
-    // Update cursor ring color based on theme
-    setCursorRing(prev => ({
-      ...prev,
-      color: theme === 'dark' ? '#3B82F6' : '#3B82F6',
-    }));
+    }
     
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationRef.current);
     };
-  }, [theme]);
+  }, []);
   
   // Animation loop
   useEffect(() => {
