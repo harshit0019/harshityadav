@@ -76,6 +76,21 @@
     max-width: 100vw;
     margin: 0 !important;
     padding: 0 !important;
+    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+  }
+
+  /* Global transition for all theme color changes */
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+  }
+
+  /* Elements that should not have the global transition */
+  .loader-circle, .loader-circle::before, .loader-circle::after,
+  .loader-shape, [class*="animate-"], [class*="motion-"], [class*="transition-"],
+  .floating-orb-1, .floating-orb-2, .floating-orb-3 {
+    transition-property: none;
   }
 
   body {
