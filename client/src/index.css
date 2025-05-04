@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* Core colors */
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --primary: 207 90% 59%;
@@ -30,9 +31,14 @@
     /* Light theme explicit colors */
     --light-bg: 0 0% 100%;
     --light-text: 215 14% 23%;
+    
+    /* Animation properties */
+    --theme-transition-duration: 0.7s;
+    --theme-transition-easing: cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
   .dark {
+    /* Core colors */
     --background: 240 10% 10%;
     --foreground: 0 0% 98%;
     --primary: 207 90% 59%;
@@ -58,6 +64,10 @@
     /* Dark theme explicit colors */
     --dark-bg: 240 10% 10%;
     --dark-text: 210 20% 90%;
+    
+    /* Animation properties kept the same for consistency */
+    --theme-transition-duration: 0.7s;
+    --theme-transition-easing: cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 }
 
@@ -76,14 +86,15 @@
     max-width: 100vw;
     margin: 0 !important;
     padding: 0 !important;
-    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    transition: color var(--theme-transition-duration) var(--theme-transition-easing), 
+                background-color var(--theme-transition-duration) var(--theme-transition-easing);
   }
 
   /* Global transition for all theme color changes */
   *, *::before, *::after {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: var(--theme-transition-duration);
+    transition-timing-function: var(--theme-transition-easing);
   }
 
   /* Elements that should not have the global transition */
@@ -202,12 +213,12 @@
   align-items: center;
   z-index: 9999;
   overflow: hidden;
-  transition: background-color 0.8s ease-in-out;
+  transition: background-color calc(var(--theme-transition-duration) * 1.2) var(--theme-transition-easing);
 }
 
 .dark .page-loader {
   background-color: #0f1219;
-  transition: background-color 0.8s ease-in-out;
+  transition: background-color calc(var(--theme-transition-duration) * 1.2) var(--theme-transition-easing);
 }
 
 .loader-content {
