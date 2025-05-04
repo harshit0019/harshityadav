@@ -52,7 +52,7 @@ export function ProjectsSection() {
           Featured <span className="gradient-text">Projects</span>
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -60,6 +60,7 @@ export function ProjectsSection() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.1 }}
+              className="max-w-sm mx-auto w-full"
             >
               <ProjectCard project={project} />
             </motion.div>
