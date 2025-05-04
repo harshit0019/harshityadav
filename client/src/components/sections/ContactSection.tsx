@@ -40,19 +40,16 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // Try our server-side proxy approach first
-      const proxyResponse = await apiRequest("POST", "/api/contact", data);
+      // Use our server endpoint directly
+      await apiRequest("POST", "/api/contact", data);
       
-      if (proxyResponse && proxyResponse.success) {
-        form.reset();
-        toast({
-          title: "Message sent successfully!",
-          description: "Thanks for reaching out. I'll get back to you soon.",
-          variant: "default",
-        });
-      } else {
-        throw new Error("Failed to send message through primary method");
-      }
+      // If there's no error, reset the form and show success
+      form.reset();
+      toast({
+        title: "Message sent successfully!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
+        variant: "default",
+      });
     } catch (error) {
       console.error("Error sending message:", error);
       
