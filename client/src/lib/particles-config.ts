@@ -1,9 +1,12 @@
 import { tsParticles } from "tsparticles-engine";
-import { loadFull } from "tsparticles";
+import { loadSlim } from "tsparticles-slim";
 
 export async function loadParticles(containerId: string) {
   try {
-    await loadFull(tsParticles);
+    // Initialize tsParticles and load the preset
+    await loadSlim(tsParticles);
+    
+    // Load the particles configuration
     await tsParticles.load({
       id: containerId,
       options: {
