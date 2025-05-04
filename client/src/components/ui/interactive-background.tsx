@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '@/hooks/use-theme';
 
 type Particle = {
   x: number;
@@ -35,6 +36,12 @@ type CursorRing = {
 };
 
 export default function InteractiveBackground() {
+  // Use static colors for simplicity
+  const primaryColor = '#3B82F6'; // Blue
+  const secondaryColor = '#8B5CF6'; // Purple
+  const accentColor = '#06B6D4'; // Cyan
+  const tertiaryColor = '#EC4899'; // Pink
+  const quaternaryColor = '#10B981'; // Green
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
   const [cursorRing, setCursorRing] = useState<CursorRing>({

@@ -76,7 +76,7 @@ export default function InteractiveBackground() {
     // Create particles
     function createParticles() {
       const particles: Particle[] = [];
-      const count = Math.min(Math.floor(window.innerWidth * window.innerHeight / 12000), 150);
+      const count = Math.min(Math.floor(window.innerWidth * window.innerHeight / 18000), 100);
       
       // Fixed colors for consistency
       const primaryColor = '#3B82F6'; // Blue
@@ -258,28 +258,38 @@ export default function InteractiveBackground() {
       const particles = particlesRef.current;
       
       // Draw connections between particles
-      ctx.lineWidth = 0.5;
+      ctx.lineWidth = 0.3; // Thinner lines for cleaner look
       ctx.lineCap = 'round';
       
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];
         
-        for (let j = i + 1; j < particles.length; j++) {
+        // Limit connections per particle for better performance and cleaner look
+        let connections = 0;
+        const maxConnections = 3;
+        
+        for (let j = i + 1; j < particles.length && connections < maxConnections; j++) {
           const p2 = particles[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 120) {
-            // Create gradient line
+          // Use a smoother connection distance with easing
+          const connectionDistance = 140;
+          if (distance < connectionDistance) {
+            connections++;
+            
+            // More elegant gradient with smoother opacity transition
             const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-            const opacity1 = Math.floor((1 - distance / 120) * 255).toString(16).padStart(2, '0');
-            const opacity2 = Math.floor((1 - distance / 120) * 255).toString(16).padStart(2, '0');
+            const opacityFactor = Math.pow(1 - distance / connectionDistance, 1.5); // Apply easing for smoother fade
+            const opacity1 = Math.floor(opacityFactor * 200).toString(16).padStart(2, '0');
+            const opacity2 = Math.floor(opacityFactor * 200).toString(16).padStart(2, '0');
+            
             gradient.addColorStop(0, p1.color + opacity1);
             gradient.addColorStop(1, p2.color + opacity2);
             
             ctx.strokeStyle = gradient;
-            ctx.globalAlpha = (1 - distance / 120) * 0.5;
+            ctx.globalAlpha = opacityFactor * 0.4; // Lower alpha for subtler effect
             
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
@@ -292,98 +302,187 @@ export default function InteractiveBackground() {
       
       // Update and draw each particle
       for (const p of particles) {
-        p.x += p.speedX;
-        p.y += p.speedY;
+        // Add slight randomness to movement for more organic feel
+        const jitter = Math.random() * 0.05 - 0.025;
+        p.x += p.speedX + jitter;
+        p.y += p.speedY + jitter;
         
-        // Boundary check
-        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+        // Smooth boundary check with damping to avoid abrupt changes
+        if (p.x < 0) {
+          p.x = 0;
+          p.speedX = Math.abs(p.speedX) * 0.3; // Dampen the bounce
+        } else if (p.x > canvas.width) {
+          p.x = canvas.width;
+          p.speedX = -Math.abs(p.speedX) * 0.3; // Dampen the bounce
+        }
         
-        // Mouse repulsion
+        if (p.y < 0) {
+          p.y = 0;
+          p.speedY = Math.abs(p.speedY) * 0.3; // Dampen the bounce
+        } else if (p.y > canvas.height) {
+          p.y = canvas.height;
+          p.speedY = -Math.abs(p.speedY) * 0.3; // Dampen the bounce
+        }
+        
+        // Enhanced mouse interaction with smoother force application
         if (mousePosition) {
           const dx = p.x - mousePosition.x;
           const dy = p.y - mousePosition.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 80) {
-            const force = (80 - distance) / 80;
-            p.speedX += (dx / distance) * force * 0.2;
-            p.speedY += (dy / distance) * force * 0.2;
+          if (distance < 100) {
+            // Eased force calculation for smoother interaction
+            const force = Math.pow((100 - distance) / 100, 1.5) * 0.15;
+            
+            // Apply force with normalized direction
+            if (distance > 0) { // Avoid division by zero
+              p.speedX += (dx / distance) * force;
+              p.speedY += (dy / distance) * force;
+            }
           }
           
-          // Apply slight velocity dampening for stability
-          p.speedX *= 0.99;
-          p.speedY *= 0.99;
+          // Apply velocity dampening for stability
+          p.speedX *= 0.98;
+          p.speedY *= 0.98;
         }
         
-        // Draw particle with glow
-        ctx.shadowBlur = 15;
+        // Gradually slow down particles for a calmer effect
+        p.speedX *= 0.99;
+        p.speedY *= 0.99;
+        
+        // Draw particle with softer glow
+        ctx.globalAlpha = 0.85; // Slightly transparent particles
+        ctx.shadowBlur = 10;
         ctx.shadowColor = p.color;
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
         
-        // Reset shadow for better performance
-        ctx.shadowBlur = 0;
-      }
-      
-      // Update and draw floating orbs
-      const orbs = floatingOrbsRef.current;
-      
-      for (const orb of orbs) {
-        // Update orb position in an elliptical orbit
-        orb.angle += orb.speed;
-        const actualX = orb.x + Math.cos(orb.angle + orb.angleOffset) * orb.radiusX;
-        const actualY = orb.y + Math.sin(orb.angle + orb.angleOffset) * orb.radiusY;
-        
-        // Update pulse
-        orb.pulse += orb.pulseSpeed;
-        const scaleFactor = 0.9 + Math.sin(orb.pulse) * 0.1;
-        const actualSize = orb.size * scaleFactor;
-        orb.opacity = 0.5 + Math.sin(orb.pulse) * 0.1;
-        
-        // Draw orb with glow effect
-        const gradient = ctx.createRadialGradient(
-          actualX, actualY, 0,
-          actualX, actualY, actualSize
-        );
-        
-        gradient.addColorStop(0, orb.color);
-        gradient.addColorStop(1, 'transparent');
-        
-        ctx.globalAlpha = orb.opacity;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = orb.color;
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(actualX, actualY, actualSize, 0, Math.PI * 2);
-        ctx.fill();
-        
+        // Reset settings for better performance
         ctx.shadowBlur = 0;
         ctx.globalAlpha = 1;
       }
       
-      // Draw cursor ring
+      // Update and draw floating orbs with enhanced effects
+      const orbs = floatingOrbsRef.current;
+      
+      for (const orb of orbs) {
+        // Update orb position with smoother elliptical orbit
+        orb.angle += orb.speed;
+        
+        // Apply slight wave effect to the orbit path
+        const waveEffect = Math.sin(orb.angle * 2) * 5;
+        const actualX = orb.x + Math.cos(orb.angle + orb.angleOffset) * (orb.radiusX + waveEffect);
+        const actualY = orb.y + Math.sin(orb.angle + orb.angleOffset) * (orb.radiusY + waveEffect);
+        
+        // Create more dynamic pulsing
+        orb.pulse += orb.pulseSpeed;
+        // Use easing function for more natural pulsing
+        const pulseValue = Math.sin(orb.pulse);
+        const easeInOutValue = pulseValue < 0 
+          ? -(Math.pow(-pulseValue, 2)) 
+          : Math.pow(pulseValue, 2);
+        
+        // Smoother size variation
+        const scaleFactor = 0.92 + easeInOutValue * 0.08;
+        const actualSize = orb.size * scaleFactor;
+        
+        // Smoother opacity variation with different phase
+        orb.opacity = 0.4 + (Math.sin(orb.pulse * 1.3) * 0.1);
+        
+        // Enhanced multi-layered glow effect
+        // Inner glow
+        const innerGradient = ctx.createRadialGradient(
+          actualX, actualY, 0,
+          actualX, actualY, actualSize * 0.7
+        );
+        
+        innerGradient.addColorStop(0, orb.color);
+        innerGradient.addColorStop(1, 'transparent');
+        
+        ctx.globalAlpha = orb.opacity * 1.2; // Slightly brighter core
+        ctx.fillStyle = innerGradient;
+        ctx.beginPath();
+        ctx.arc(actualX, actualY, actualSize * 0.7, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Outer glow
+        const outerGradient = ctx.createRadialGradient(
+          actualX, actualY, actualSize * 0.5,
+          actualX, actualY, actualSize
+        );
+        
+        outerGradient.addColorStop(0, orb.color + '60'); // Semi-transparent
+        outerGradient.addColorStop(1, 'transparent');
+        
+        ctx.globalAlpha = orb.opacity * 0.7; // More transparent outer glow
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = orb.color + '40'; // Lighter shadow
+        ctx.fillStyle = outerGradient;
+        ctx.beginPath();
+        ctx.arc(actualX, actualY, actualSize, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Reset canvas settings
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+      }
+      
+      // Enhanced cursor effects with multi-layered rings
       if (mousePosition) {
-        // Update pulse
+        // Update pulse with easing for smoother effect
         cursorRing.pulseSize += cursorRing.pulseSpeed;
-        const ringScaleFactor = 0.9 + Math.sin(cursorRing.pulseSize) * 0.1;
+        const pulseValue = Math.sin(cursorRing.pulseSize);
+        const easeInOutValue = pulseValue < 0 
+          ? -(Math.pow(-pulseValue, 2)) 
+          : Math.pow(pulseValue, 2);
+        
+        const ringScaleFactor = 0.9 + easeInOutValue * 0.1;
         const actualSize = cursorRing.size * ringScaleFactor;
         
-        // Draw glow ring
-        const ringGradient = ctx.createRadialGradient(
-          mousePosition.x, mousePosition.y, 0,
+        // Outer glow ring - subtle wide halo
+        const outerRingGradient = ctx.createRadialGradient(
+          mousePosition.x, mousePosition.y, actualSize * 0.5,
+          mousePosition.x, mousePosition.y, actualSize * 1.5
+        );
+        
+        outerRingGradient.addColorStop(0, 'rgba(59, 130, 246, 0.05)');
+        outerRingGradient.addColorStop(0.6, 'rgba(59, 130, 246, 0.02)');
+        outerRingGradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        
+        ctx.fillStyle = outerRingGradient;
+        ctx.beginPath();
+        ctx.arc(mousePosition.x, mousePosition.y, actualSize * 1.5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Middle glow ring
+        const midRingGradient = ctx.createRadialGradient(
+          mousePosition.x, mousePosition.y, actualSize * 0.3,
           mousePosition.x, mousePosition.y, actualSize
         );
         
-        ringGradient.addColorStop(0, 'rgba(59, 130, 246, 0)');
-        ringGradient.addColorStop(0.5, 'rgba(59, 130, 246, 0.1)');
-        ringGradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        midRingGradient.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
+        midRingGradient.addColorStop(0.7, 'rgba(59, 130, 246, 0.04)');
+        midRingGradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
         
-        ctx.fillStyle = ringGradient;
+        ctx.fillStyle = midRingGradient;
         ctx.beginPath();
         ctx.arc(mousePosition.x, mousePosition.y, actualSize, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Inner glow - small bright dot at cursor
+        const innerRingGradient = ctx.createRadialGradient(
+          mousePosition.x, mousePosition.y, 0,
+          mousePosition.x, mousePosition.y, actualSize * 0.2
+        );
+        
+        innerRingGradient.addColorStop(0, 'rgba(59, 130, 246, 0.1)');
+        innerRingGradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        
+        ctx.fillStyle = innerRingGradient;
+        ctx.beginPath();
+        ctx.arc(mousePosition.x, mousePosition.y, actualSize * 0.2, 0, Math.PI * 2);
         ctx.fill();
       }
       
@@ -433,7 +532,7 @@ export default function InteractiveBackground() {
     <canvas
       ref={canvasRef}
       className="fixed top-0 left-0 w-full h-full pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.5 }}
     />
   );
 }
