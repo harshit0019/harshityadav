@@ -29,14 +29,22 @@ function Router() {
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
-    // Simulate loading time with a longer duration to show full animation sequence
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 4500);
+    // Simulate loading progress with incremental updates
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        setTimeout(() => setLoading(false), 500); // Short delay after reaching 100%
+      }
+      setLoadingProgress(Math.min(progress, 100));
+    }, 300);
     
-    return () => clearTimeout(timer);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -183,25 +191,40 @@ function App() {
                     </div>
                   </motion.div>
                   
+                  {/* Loading Progress bar */}
+                  <div className="loading-progress-container">
+                    <div className="loading-label">
+                      Loading portfolio... <span className="loading-percent">{Math.round(loadingProgress)}%</span>
+                    </div>
+                    <div className="loading-bar-container">
+                      <motion.div 
+                        className="loading-bar"
+                        initial={{ width: "0%" }}
+                        animate={{ width: `${loadingProgress}%` }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    </div>
+                  </div>
+                  
                   {/* Code lines animation */}
                   <div className="code-lines-container">
                     <motion.div 
                       className="code-line"
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: "70%", opacity: 0.6 }}
-                      transition={{ duration: 0.7, delay: 2.2 }}
+                      transition={{ duration: 0.7, delay: 1.8 }}
                     />
                     <motion.div 
                       className="code-line"
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: "40%", opacity: 0.6 }}
-                      transition={{ duration: 0.5, delay: 2.4 }}
+                      transition={{ duration: 0.5, delay: 2.0 }}
                     />
                     <motion.div 
                       className="code-line"
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: "60%", opacity: 0.6 }}
-                      transition={{ duration: 0.6, delay: 2.6 }}
+                      transition={{ duration: 0.6, delay: 2.2 }}
                     />
                   </div>
                 </div>
