@@ -21,7 +21,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Use Web3Forms to send the email
       const formData = {
         ...validData,
-        access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8", // Adding API key server-side for security
+        access_key: process.env.WEB3FORMS_API_KEY || "384d8768-c52f-4a1c-89f1-db67130a68c8", // Using environment variable with fallback
         from_name: validData.name,
         subject: validData.subject || "Contact Form Submission",
         botcheck: "",  // Honeypot field for spam prevention
@@ -71,8 +71,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const formData = {
         ...req.body,
-        access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8", // Adding API key server-side for security
-        site_url: "https://harshityadav.com", // Setting site_url to bypass domain check
+        access_key: process.env.WEB3FORMS_API_KEY || "384d8768-c52f-4a1c-89f1-db67130a68c8", // Using environment variable with fallback
+        site_url: process.env.SITE_URL || "https://harshityadav.com", // Setting site_url to bypass domain check
       };
       
       console.log("Forwarding to Web3Forms:", formData);
