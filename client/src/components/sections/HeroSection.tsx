@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/framer-animations";
 import { Download, Mail, ArrowDown } from "lucide-react";
+import { TypeAnimation } from 'react-type-animation';
 
 export function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -10,7 +11,7 @@ export function HeroSection() {
     // Create a smooth entrance loading effect
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 300);
+    }, 400);
     
     return () => clearTimeout(timer);
   }, []);
@@ -20,18 +21,21 @@ export function HeroSection() {
       {/* Decorative background elements */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50 to-gray-50 dark:from-gray-900 dark:to-gray-800 opacity-70"></div>
       
+      {/* Animated orbs */}
       <div className="floating-orb-1"></div>
       <div className="floating-orb-2"></div>
       <div className="floating-orb-3"></div>
 
+      {/* Main content container */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="text-center max-w-3xl mx-auto">
+          {/* Intro text with animation */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ 
               opacity: isLoaded ? 1 : 0, 
               y: isLoaded ? 0 : -20,
-              transition: { duration: 0.5, delay: 0.2 } 
+              transition: { duration: 0.6, delay: 0.3 } 
             }}
             className="mb-2"
           >
@@ -40,40 +44,56 @@ export function HeroSection() {
             </span>
           </motion.div>
           
+          {/* Name with animation */}
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
             animate={{ 
               opacity: isLoaded ? 1 : 0, 
               y: isLoaded ? 0 : -20,
-              transition: { duration: 0.7, delay: 0.4 } 
+              transition: { duration: 0.8, delay: 0.5 } 
             }}
             className="text-4xl sm:text-5xl md:text-6xl font-rubik font-bold mb-4 gradient-text"
           >
             Harshit Yadav
           </motion.h1>
           
-          <motion.h2 
+          {/* Animated typing with multiple roles */}
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ 
               opacity: isLoaded ? 1 : 0, 
               y: isLoaded ? 0 : -20,
-              transition: { duration: 0.7, delay: 0.6 } 
+              transition: { duration: 0.8, delay: 0.7 } 
             }}
-            className="text-xl sm:text-2xl md:text-3xl font-poppins text-gray-800 dark:text-gray-200 mb-6"
+            className="h-10 sm:h-12 md:h-14 flex justify-center items-center mb-6"
           >
-            Programmer & Data Analyst
-          </motion.h2>
+            <TypeAnimation
+              sequence={[
+                'Software Developer & Content Creator',
+                2000,
+                'Programmer & Data Analyst',
+                2000,
+                'Prompt Engineer & Vibe Coder',
+                2000,
+              ]}
+              wrapper="h2"
+              speed={50}
+              repeat={Infinity}
+              className="text-xl sm:text-2xl md:text-3xl font-poppins text-gray-800 dark:text-gray-200"
+            />
+          </motion.div>
           
+          {/* Description with animation */}
           <motion.p 
             initial={{ opacity: 0, y: -20 }}
             animate={{ 
               opacity: isLoaded ? 1 : 0, 
               y: isLoaded ? 0 : -20,
-              transition: { duration: 0.7, delay: 0.8 } 
+              transition: { duration: 0.8, delay: 0.9 } 
             }}
-            className="text-lg text-gray-600 dark:text-gray-300 mb-8 font-josefin"
+            className="text-lg text-gray-600 dark:text-gray-300 mb-8 font-josefin max-w-2xl mx-auto"
           >
-            Creating sustainable solutions through data analysis and programming
+            I build vibrant digital experiences with AI-powered prompt engineering, vibe-focused coding, robust programming skills, and polished software development.
           </motion.p>
 
           <motion.div 
