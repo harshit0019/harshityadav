@@ -69,8 +69,7 @@ export function Navbar({ activeSection }: NavbarProps) {
         isScrolled ? "py-2 glass shadow-lg" : "py-4 shadow-md"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
-        <nav className="flex justify-between items-center">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         {/* Logo */}
         <a href="#home" className="flex items-center">
           <motion.h1 
@@ -168,7 +167,6 @@ export function Navbar({ activeSection }: NavbarProps) {
           </button>
         </div>
       </nav>
-      </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -178,7 +176,7 @@ export function Navbar({ activeSection }: NavbarProps) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-gray-900 shadow-lg rounded-b-lg mx-4 sm:mx-8 lg:mx-12 overflow-hidden"
+            className="md:hidden bg-white dark:bg-gray-900 shadow-lg rounded-b-lg mx-4 overflow-hidden"
           >
             <ul className="py-2 px-4 space-y-2">
               {navLinks.map((link) => (
