@@ -1,10 +1,10 @@
+import { tsParticles } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
-import type { Engine } from "tsparticles-engine";
 
 export async function loadParticles(containerId: string) {
   try {
-    const engine = await loadFull(window.tsParticles) as unknown as Engine;
-    await engine.load({
+    await loadFull(tsParticles);
+    await tsParticles.load({
       id: containerId,
       options: {
         fpsLimit: 60,
