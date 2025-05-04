@@ -153,40 +153,7 @@
   background: linear-gradient(to bottom, hsl(var(--primary)), hsl(var(--secondary)));
 }
 
-/* 3D text effect for hero section */
-.perspective-text-container {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
 
-.hero-3d-text {
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease;
-  text-shadow: 
-    0 1px 0 hsl(var(--primary) / 0.9),
-    0 2px 0 hsl(var(--primary) / 0.8),
-    0 3px 0 hsl(var(--primary) / 0.7),
-    0 4px 0 hsl(var(--primary) / 0.6),
-    0 5px 0 hsl(var(--primary) / 0.5),
-    0 6px 0 hsl(var(--primary) / 0.4),
-    0 7px 10px rgba(0, 0, 0, 0.2);
-}
-
-.hero-3d-text:hover {
-  transform: translateZ(30px) rotateX(10deg) rotateY(-10deg);
-}
-
-.dark .hero-3d-text {
-  text-shadow: 
-    0 1px 0 hsl(var(--primary) / 0.9),
-    0 2px 0 hsl(var(--primary) / 0.8),
-    0 3px 0 hsl(var(--primary) / 0.7),
-    0 4px 0 hsl(var(--primary) / 0.6),
-    0 5px 0 hsl(var(--primary) / 0.5),
-    0 6px 0 hsl(var(--primary) / 0.4),
-    0 7px 10px rgba(0, 0, 0, 0.4);
-}
 
 /* Website loading animation */
 .page-loader {

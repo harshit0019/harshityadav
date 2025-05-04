@@ -1,21 +1,22 @@
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/framer-animations";
 import { Tilt } from "react-tilt";
+import profileImage from "../../assets/profile.png";
 
 export function AboutSection() {
   const defaultTiltOptions = {
     reverse: false,
-    max: 15,
-    perspective: 1000,
-    scale: 1.05,
+    max: 10,
+    perspective: 1500,
+    scale: 1.03,
     speed: 1000,
     transition: true,
     axis: null,
     reset: true,
     easing: "cubic-bezier(.03,.98,.52,.99)",
+    glare: true,
+    maxGlare: 0.3
   };
-
-  const profileImage = `https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80`;
 
   return (
     <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
@@ -39,13 +40,13 @@ export function AboutSection() {
             className="order-2 lg:order-1"
           >
             <Tilt options={defaultTiltOptions} className="shadow-lg rounded-lg overflow-hidden max-w-md mx-auto lg:ml-auto">
-              <div className="relative">
+              <div className="relative bg-gradient-to-tr from-primary/10 to-secondary/10 p-2 rounded-lg">
                 <img
                   src={profileImage}
                   alt="Portrait of Harshit Yadav"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-contain rounded-lg"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-secondary/30 mix-blend-overlay"></div>
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-primary/20 to-secondary/20 mix-blend-overlay"></div>
               </div>
             </Tilt>
           </motion.div>
