@@ -1,67 +1,88 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/lib/framer-animations";
-import { loadParticles } from "@/lib/particles-config";
 import { Download, Mail, ArrowDown } from "lucide-react";
 
 export function HeroSection() {
-  const [isParticlesLoaded, setIsParticlesLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    loadParticles('tsparticles');
-    setIsParticlesLoaded(true);
+    // Create a smooth entrance loading effect
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+    
+    return () => clearTimeout(timer);
   }, []);
   
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16">
-      <div id="tsparticles" className="absolute inset-0 -z-10"></div>
-
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50 to-gray-50 dark:from-gray-900 dark:to-gray-800 opacity-70"></div>
+      
       <div className="floating-orb-1"></div>
       <div className="floating-orb-2"></div>
       <div className="floating-orb-3"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="text-center max-w-3xl mx-auto">
-          <motion.p 
-            variants={fadeIn("down", 0.2)}
-            initial="hidden"
-            animate="show"
-            className="text-lg sm:text-xl text-primary mb-2 font-josefin"
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ 
+              opacity: isLoaded ? 1 : 0, 
+              y: isLoaded ? 0 : -20,
+              transition: { duration: 0.5, delay: 0.2 } 
+            }}
+            className="mb-2"
           >
-            Hi, I'm
-          </motion.p>
+            <span className="text-lg sm:text-xl text-primary font-josefin">
+              Hi, I'm
+            </span>
+          </motion.div>
           
           <motion.h1 
-            variants={fadeIn("down", 0.3)}
-            initial="hidden"
-            animate="show"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ 
+              opacity: isLoaded ? 1 : 0, 
+              y: isLoaded ? 0 : -20,
+              transition: { duration: 0.7, delay: 0.4 } 
+            }}
             className="text-4xl sm:text-5xl md:text-6xl font-rubik font-bold mb-4 gradient-text"
           >
             Harshit Yadav
           </motion.h1>
           
           <motion.h2 
-            variants={fadeIn("down", 0.4)}
-            initial="hidden"
-            animate="show"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ 
+              opacity: isLoaded ? 1 : 0, 
+              y: isLoaded ? 0 : -20,
+              transition: { duration: 0.7, delay: 0.6 } 
+            }}
             className="text-xl sm:text-2xl md:text-3xl font-poppins text-gray-800 dark:text-gray-200 mb-6"
           >
             Programmer & Data Analyst
           </motion.h2>
           
           <motion.p 
-            variants={fadeIn("down", 0.5)}
-            initial="hidden"
-            animate="show"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ 
+              opacity: isLoaded ? 1 : 0, 
+              y: isLoaded ? 0 : -20,
+              transition: { duration: 0.7, delay: 0.8 } 
+            }}
             className="text-lg text-gray-600 dark:text-gray-300 mb-8 font-josefin"
           >
             Creating sustainable solutions through data analysis and programming
           </motion.p>
 
           <motion.div 
-            variants={fadeIn("up", 0.6)}
-            initial="hidden"
-            animate="show"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: isLoaded ? 1 : 0, 
+              y: isLoaded ? 0 : 20,
+              transition: { duration: 0.7, delay: 1.0 } 
+            }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <a 
@@ -81,16 +102,19 @@ export function HeroSection() {
           </motion.div>
 
           <motion.div 
-            variants={fadeIn("up", 0.7)}
-            initial="hidden"
-            animate="show"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: isLoaded ? 1 : 0, 
+              y: isLoaded ? 0 : 20,
+              transition: { duration: 0.7, delay: 1.2 } 
+            }}
             className="flex items-center justify-center gap-6 mb-16"
           >
             <a 
               href="https://linkedin.com/in/harshitydv"
               target="_blank"
               rel="noopener noreferrer" 
-              className="bg-gray-100 dark:bg-gray-800 text-primary h-12 w-12 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
+              className="bg-gradient-to-br from-blue-500 to-primary text-white h-12 w-12 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
               aria-label="LinkedIn"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -103,7 +127,7 @@ export function HeroSection() {
               href="https://github.com/harshit0019"
               target="_blank"
               rel="noopener noreferrer" 
-              className="bg-gray-100 dark:bg-gray-800 text-primary h-12 w-12 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
+              className="bg-gradient-to-br from-gray-800 to-gray-700 text-white h-12 w-12 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
               aria-label="GitHub"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -112,7 +136,7 @@ export function HeroSection() {
             </a>
             <a 
               href="mailto:yadavharshit1901@gmail.com" 
-              className="bg-gray-100 dark:bg-gray-800 text-primary h-12 w-12 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
+              className="bg-gradient-to-br from-red-500 to-orange-500 text-white h-12 w-12 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
               aria-label="Email"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -123,9 +147,12 @@ export function HeroSection() {
           </motion.div>
 
           <motion.a 
-            variants={fadeIn("up", 0.8)}
-            initial="hidden"
-            animate="show"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: isLoaded ? 1 : 0, 
+              y: isLoaded ? 0 : 20,
+              transition: { duration: 0.7, delay: 1.4 } 
+            }}
             href="#about" 
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-primary animate-bounce"
             aria-label="Scroll down"

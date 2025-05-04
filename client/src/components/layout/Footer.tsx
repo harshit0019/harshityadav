@@ -115,16 +115,16 @@ export function Footer() {
             viewport={{ once: true, amount: 0.3 }}
             className="md:col-span-2"
           >
-            <h3 className="text-xl font-poppins font-bold mb-5 text-gray-800 dark:text-gray-200 md:opacity-0">
+            <h3 className="text-xl font-poppins font-bold mb-5 text-gray-800 dark:text-gray-200 md:opacity-0 hidden md:block">
               &nbsp;
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3 mt-[-3px] md:mt-0">
               <li>
                 <a
                   href="#experience"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center"
                 >
-                  <span className="bg-gray-200 dark:bg-gray-700 h-1.5 w-1.5 rounded-full inline-block mr-2"></span>
+                  <span className="bg-primary h-1 w-1 rounded-full inline-block mr-2"></span>
                   Experience
                 </a>
               </li>
@@ -133,7 +133,7 @@ export function Footer() {
                   href="#contact"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center"
                 >
-                  <span className="bg-gray-200 dark:bg-gray-700 h-1.5 w-1.5 rounded-full inline-block mr-2"></span>
+                  <span className="bg-primary h-1 w-1 rounded-full inline-block mr-2"></span>
                   Contact
                 </a>
               </li>
