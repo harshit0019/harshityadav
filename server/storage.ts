@@ -18,11 +18,12 @@ import {
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc, asc } from "drizzle-orm";
-import connectPg from "connect-pg-simple";
+import connectPgSimple from "connect-pg-simple";
 import session from "express-session";
 import { pool } from "./db";
 
-const PostgresSessionStore = connectPg(session);
+// Fix type issues with session store
+const PostgresSessionStore = connectPgSimple(session);
 
 export interface IStorage {
   // User management
@@ -77,11 +78,11 @@ export interface IStorage {
   deleteResponsibility(id: number): Promise<boolean>;
   
   // Session store for authentication
-  sessionStore: session.SessionStore;
+  sessionStore: any;
 }
 
 export class DatabaseStorage implements IStorage {
-  sessionStore: session.SessionStore;
+  sessionStore: any;
   
   constructor() {
     this.sessionStore = new PostgresSessionStore({ 
