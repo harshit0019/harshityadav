@@ -40,19 +40,10 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // First try using our server proxy to Web3Forms
-      const formData = {
-        ...data,
-        from_name: data.name,
-        botcheck: "",  // Honeypot field for spam prevention
-      };
+      // Try our server-side proxy approach first
+      const proxyResponse = await apiRequest("POST", "/api/contact", data);
       
-      // The server adds the access_key and site_url
-      const response = await apiRequest("POST", "/api/web3forms-proxy", formData);
-      
-      console.log("Web3Forms proxy response:", response);
-      
-      if (response.success) {
+      if (proxyResponse && proxyResponse.success) {
         form.reset();
         toast({
           title: "Message sent successfully!",
@@ -60,37 +51,16 @@ export function ContactSection() {
           variant: "default",
         });
       } else {
-        // If the proxy fails, try the regular contact endpoint as fallback
-        console.log("Web3Forms proxy failed, trying fallback");
-        await apiRequest("POST", "/api/contact", data);
-        form.reset();
-        toast({
-          title: "Message sent successfully!",
-          description: "Thanks for reaching out. I'll get back to you soon.",
-          variant: "default",
-        });
+        throw new Error("Failed to send message through primary method");
       }
     } catch (error) {
       console.error("Error sending message:", error);
       
-      // Try server API as fallback
-      try {
-        console.log("Trying fallback endpoint");
-        await apiRequest("POST", "/api/contact", data);
-        form.reset();
-        toast({
-          title: "Message sent successfully!",
-          description: "Thanks for reaching out. I'll get back to you soon.",
-          variant: "default",
-        });
-      } catch (fallbackError) {
-        console.error("Fallback error:", fallbackError);
-        toast({
-          title: "Something went wrong",
-          description: "Please try again later or contact me directly via email.",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later or contact me directly via email.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
