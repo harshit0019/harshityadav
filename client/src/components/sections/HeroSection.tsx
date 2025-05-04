@@ -31,16 +31,14 @@ export function HeroSection() {
             Hi, I'm
           </motion.p>
           
-          <motion.div
-            className="perspective-text-container mb-4"
+          <motion.h1 
             variants={fadeIn("down", 0.3)}
             initial="hidden"
             animate="show"
+            className="text-4xl sm:text-5xl md:text-6xl font-rubik font-bold mb-4 gradient-text"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-rubik font-bold gradient-text hero-3d-text">
-              Harshit Yadav
-            </h1>
-          </motion.div>
+            Harshit Yadav
+          </motion.h1>
           
           <motion.h2 
             variants={fadeIn("down", 0.4)}
