@@ -1,0 +1,318 @@
+Modern Developer Portfolio Website — Detailed Prompt
+1. Project Overview
+Build a fully responsive, accessible, high-performance portfolio website for Harshit Yadav that showcases skills, projects, experience, and contact info with rich animations and modern design.
+
+2. Technical Stack
+Frontend
+
+Framework: React + TypeScript (via Vite)
+
+Styling: Tailwind CSS
+
+UI Components: Shadcn UI (Radix primitives) + Lucide React icons
+
+Animations: Framer Motion, React Intersection Observer, React Tilt
+
+Particle Effects: tsparticles (canvas)
+
+Forms: React Hook Form + Zod for validation
+
+Backend
+
+Server: Express.js (Node.js)
+
+API State: React Query
+
+Build & Tooling
+
+ESLint + Prettier
+
+PostCSS + Autoprefixer
+
+CI/CD (Git hooks, GitHub Actions)
+
+Testing
+
+Jest + React Testing Library (unit & integration)
+
+Cypress (end-to-end)
+
+Deployment
+
+Vercel / Netlify for frontend
+
+Heroku / Render for backend
+
+SSL, custom domain, analytics integration
+
+3. Fonts & Typography
+Primary fonts (import via Google Fonts):
+
+Rubik
+
+Josefin Sans
+
+Poppins (Bold for headings)
+
+Font usage
+
+Headlines, section titles → Poppins Bold
+
+Body copy → Josefin Sans
+
+Accent text (e.g. “Harshit Yadav”) → Rubik with gradient CSS
+
+4. Global Layout & Theme
+Layout: Mobile-first, fluid grid → breakpoints at 640 px (sm), 768 px (md), 1024 px (lg)
+
+Color Palette
+
+Primary gradient: #4A90E2 → #9B51E0
+
+Secondary gradient: #9B51E0 → #F06292
+
+Accent: #00B4D8
+
+Light BG: #FFFFFF, Text: #2D3748
+
+Dark BG: #1A1A1A, Text: #E2E8F0
+
+Theme toggle: System preference detection + manual switch → smooth transition
+
+Glass-morphism: semi-transparent nav/footer backgrounds with backdrop-blur
+
+Smooth scrolling: native CSS scroll-behavior: smooth + Framer Motion page transitions
+
+5. Navigation Bar
+Position: fixed at top, full width
+
+Design:
+
+Background: glass effect, blur (Backdrop-filter)
+
+Logo: animated gradient text “Harshit” (Framer Motion)
+
+Links: Home, About, Skills, Projects, Experience, Contact (center)
+
+Right side: GitHub icon, LinkedIn icon (hover lift + shadow), theme toggle, “Contact” CTA button (gradient)
+
+Mobile: animated hamburger → slide-in drawer (shadcn/ui Drawer)
+
+Active link indicator: animated underline
+
+6. Hero Section
+Full viewport height
+
+Particle background (tsparticles)
+
+Mouse-reactive particles (repel on hover)
+
+Connecting lines fade by distance, gradient colors
+
+Floating orbs (CSS shapes + blur + animate via @keyframes):
+
+Top-right: 32×32 px (primary), Bottom-left: 48×48 px (secondary), Middle-right: 40×40 px (accent)
+
+Content (centered container):
+
+“Hi, I’m” → Josefin Sans, primary color
+
+Name: “Harshit Yadav” → Rubik, gradient text (primary→secondary)
+
+Title: “Programmer & Data Analyst” → Poppins Bold, dark gray
+
+Description:
+
+Creating sustainable solutions through data analysis and programming
+
+CTA Buttons (side-by-side on desktop, stacked on mobile):
+
+Download Resume (gradient bg, white text, download icon, hover lift + shadow)
+
+Contact Me (transparent bg, primary border/text → on hover fill primary & white text)
+
+Social Icons (LinkedIn, GitHub, Email): circular bg, primary icon, hover bounce + shadow
+
+Animated scroll indicator (bottom center): bouncing down arrow, primary color
+
+7. About Section
+Layout: two columns (image left, text right) on desktop; stacked on mobile
+
+Profile Photo:
+
+3D tilt on hover (React Tilt), custom glow & soft shadow, rounded corners
+
+Copy (Josefin Sans, readable line-height):
+
+Hey! I’m Harshit Yadav — part-time coder, full-time problem solver. I’m all about turning ideas into cool digital stuff 🌐💡.
+
+Whether it’s tracking carbon footprints with Python + Streamlit, building slick dashboards in Power BI, or whipping up AI tools with ChatGPT & Replit, I’m in my zone when tech meets impact.
+
+I’ve cooked up projects like a personal carbon tracker and an AI-powered SEO tag analyzer, and I’m currently leveling up as an Associate Programmer @ RMX Joss, where I build tools that actually do something — saving time, reducing emissions, and making data make sense.
+
+Big fan of frontend design, a sucker for clean UI, and always experimenting with the latest in prompt engineering, Tailwind, and React. When I’m not coding, I’m gaming, vibing to lo-fi, or creating content just for fun 🎮🎨✨.
+
+Let’s build something awesome together 🚀
+
+Stats Cards (inline flex wrap):
+
+Projects Completed (icon + counter animation → e.g. “🗂 12+”)
+
+Years of Experience (“⏳ 1+”)
+
+Technologies Mastered (“💻 10+”)
+
+Card hover: scale 1.05, shadow glow
+
+8. Skills Section
+Grid layout: 2 columns on mobile, 4 on desktop
+
+Category Cards
+
+Programming & Database: Python, SQL (PostgreSQL, MSSQL)
+
+Front-End: HTML, CSS, Tailwind CSS, Streamlit
+
+Data Analysis & Visualization: Power BI, Excel, Google Sheets
+
+AI Tools & Automation: Prompt Engineering, ChatGPT, Replit AI, Cursor AI
+
+Sustainability: Carbon footprint tracking, Scope 1–3 emission analysis & reporting
+
+Certifications: Udemy & Internshala courses
+
+Each Card:
+
+Icon with gradient bg
+
+Title (Poppins Bold)
+
+Animated progress bar + percentage (Framer Motion)
+
+Hover: scale + shadow
+
+9. Projects Section
+Responsive masonry/grid: featured project spans 2 columns on lg
+
+Project Cards (hover: zoom screenshot + deeper shadow):
+
+Personal Carbon Footprint Calculator
+
+Tech: Python, Pandas, Streamlit
+
+Live: https://personal-carbon-emission-calculatorr.streamlit.app/
+
+AI-Powered SEO Tag Inspector
+
+Tech: Prompt Engineering, Replit AI, React, Tailwind CSS, shadcn/ui, Node.js, Express
+
+Live: https://seo-tag-inspector-1.onrender.com/
+
+Modern Chair Product Page
+
+Tech: React, Tailwind CSS
+
+Live: https://harshit0019.github.io/Modern-chair-page/
+
+Interactive To-Do List
+
+Tech: React, Tailwind CSS
+
+Live: https://harshit0019.github.io/to-do-list/
+
+Card Details: screenshot overlay on hover, title gradient, short description, tech tags, “View Demo” & “GitHub” buttons
+
+10. Experience Section
+Vertical timeline (left line with nodes)
+
+Experience Cards:
+
+Associate Programmer | RMX Joss (<small>July 2024 – Present</small>)
+
+Developed Carbon Emissions Tracker (Python, Tkinter, MS SQL, ChatGPT) automating scope 1–2 reporting
+
+Trained in SAP Business One, wrote SQL for operational data analysis
+
+Led data integration: merged weekly reports → single Google Sheet → Power BI dashboard (–70% prep time)
+
+Built Merchant Dashboard in Power BI pulling from SAP DB
+
+(Add future roles here…)
+
+Animations: fade-in on scroll, icon indicators
+
+11. Contact Section
+Split layout (info card + form)
+
+Info Card:
+
+Email: yadavharshit1901@gmail.com (click-to-copy)
+
+LinkedIn: https://linkedin.com/in/harshitydv
+
+GitHub: https://github.com/harshit0019
+
+Phone (optional)
+
+Contact Form:
+
+Fields: Name, Email (validated), Subject, Message
+
+Submit: shows loading spinner, then success/error toast
+
+Validation: React Hook Form + Zod
+
+Animations: input focus glow, error shake
+
+12. Footer
+Layout: 3 columns (links, social icons, copyright)
+
+Quick Links: repeat nav anchors
+
+Social: GitHub, LinkedIn, Twitter (if any) – hover lift + shadow
+
+“Made with ❤️ by Harshit Yadav”
+
+13. Animations & Interactions (Cross-Sectional)
+Scroll Reveal: fade, slide, scale on entering viewport (React Intersection Observer + Framer Motion)
+
+Hover Effects: buttons, cards, icons all lift/scale + shadow
+
+Particle System: global interactive background for Hero (tsparticles config)
+
+Tilt: React Tilt on image & project cards
+
+Page Transitions: smooth fade/slide between routes
+
+14. Performance & Optimizations
+Lazy-load images & non-critical components (React.lazy)
+
+Route-based code splitting (Vite dynamic imports)
+
+Minify + tree-shake (default Vite)
+
+Cache strategies (service worker optional)
+
+SEO: meta tags, OpenGraph (React Helmet)
+
+Accessibility: ARIA labels, keyboard focus states, color contrast checks
+
+15. Testing & Deployment
+Testing: coverage for UI components, form validation, API calls
+
+CI/CD: run tests + lint on push, auto-deploy on merge to main
+
+Monitoring: basic analytics (Google Analytics), Sentry for errors
+
+16. Deliverables
+Full source code (GitHub repo)
+
+Live deployment URLs
+
+README with setup & deployment steps
+
+Design & component documentation
+
+Testing reports & coverage
+
+Accessibility audit
