@@ -12,21 +12,43 @@ const contactFormSchema = z.object({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Contact form endpoint
+  // Contact form endpoint with Web3Forms integration
   app.post('/api/contact', async (req: Request, res: Response) => {
     try {
       // Validate form data
       const validData = contactFormSchema.parse(req.body);
       
-      // For now, just simulate a successful submission
-      // with a slight delay to mimic network latency
-      setTimeout(() => {
+      // Use Web3Forms to send the email
+      const formData = {
+        ...validData,
+        access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8", // Adding API key server-side for security
+        from_name: validData.name,
+        subject: validData.subject || "Contact Form Submission",
+        botcheck: "",  // Honeypot field for spam prevention
+      };
+      
+      console.log("Sending contact form to Web3Forms...");
+      
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const responseData = await response.json();
+      console.log("Web3Forms response:", responseData);
+      
+      if (responseData.success) {
         res.status(200).json({ 
           success: true, 
-          message: "Message received successfully" 
+          message: "Message sent successfully" 
         });
-      }, 1000);
-      
+      } else {
+        throw new Error(responseData.message || "Failed to send message");
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
@@ -38,7 +60,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error("Contact form error:", error);
         res.status(500).json({ 
           success: false, 
-          message: "Server error" 
+          message: error instanceof Error ? error.message : "Server error" 
         });
       }
     }
