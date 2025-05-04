@@ -40,16 +40,33 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // Use our server endpoint directly with a more direct approach
-      const response = await fetch("/api/contact", {
+      // Add additional fields needed by Web3Forms
+      const formData = {
+        ...data,
+        access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8", // Web3Forms API key
+        from_name: data.name,
+        subject: data.subject || "Contact Form Submission",
+        botcheck: "",  // Honeypot field for spam prevention
+      };
+      
+      // Use the web3forms-proxy endpoint which is known to work
+      const response = await fetch("/api/web3forms-proxy", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(formData)
       });
       
-      const result = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch (e) {
+        console.error("Failed to parse JSON response:", e);
+        throw new Error("Invalid response from server");
+      }
+      
+      console.log("Form submission response:", result);
       
       if (response.ok && result.success) {
         // If successful, reset the form and show success message
