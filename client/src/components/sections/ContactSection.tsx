@@ -40,16 +40,28 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // Use our server endpoint directly
-      await apiRequest("POST", "/api/contact", data);
-      
-      // If there's no error, reset the form and show success
-      form.reset();
-      toast({
-        title: "Message sent successfully!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-        variant: "default",
+      // Use our server endpoint directly with a more direct approach
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
       });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        // If successful, reset the form and show success message
+        form.reset();
+        toast({
+          title: "Message sent successfully!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+          variant: "default",
+        });
+      } else {
+        throw new Error(result.message || "Failed to send message");
+      }
     } catch (error) {
       console.error("Error sending message:", error);
       
