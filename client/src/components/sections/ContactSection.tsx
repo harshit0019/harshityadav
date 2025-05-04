@@ -40,29 +40,19 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      // Using Web3Forms API with workaround for Replit domain
+      // First try using our server proxy to Web3Forms
       const formData = {
         ...data,
-        access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8",
         from_name: data.name,
-        subject: data.subject,
         botcheck: "",  // Honeypot field for spam prevention
-        // Add a custom domain to bypass the domain check
-        site_url: "https://harshityadav.com",
       };
       
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify(formData),
-      });
+      // The server adds the access_key and site_url
+      const response = await apiRequest("POST", "/api/web3forms-proxy", formData);
       
-      const result = await response.json();
+      console.log("Web3Forms proxy response:", response);
       
-      if (result.success) {
+      if (response.success) {
         form.reset();
         toast({
           title: "Message sent successfully!",
@@ -70,7 +60,8 @@ export function ContactSection() {
           variant: "default",
         });
       } else {
-        // Fall back to server API if Web3Forms fails
+        // If the proxy fails, try the regular contact endpoint as fallback
+        console.log("Web3Forms proxy failed, trying fallback");
         await apiRequest("POST", "/api/contact", data);
         form.reset();
         toast({
@@ -80,9 +71,11 @@ export function ContactSection() {
         });
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error sending message:", error);
+      
       // Try server API as fallback
       try {
+        console.log("Trying fallback endpoint");
         await apiRequest("POST", "/api/contact", data);
         form.reset();
         toast({

@@ -18,11 +18,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Validate form data
       const validData = contactFormSchema.parse(req.body);
       
-      // In a real implementation, you would:
-      // 1. Send email notification
-      // 2. Store message in database
-      // 3. Handle any errors
-      
       // For now, just simulate a successful submission
       // with a slight delay to mimic network latency
       setTimeout(() => {
@@ -46,6 +41,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
           message: "Server error" 
         });
       }
+    }
+  });
+  
+  // Web3Forms proxy endpoint
+  app.post('/api/web3forms-proxy', async (req: Request, res: Response) => {
+    try {
+      const formData = {
+        ...req.body,
+        access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8", // Adding API key server-side for security
+        site_url: "https://harshityadav.com", // Setting site_url to bypass domain check
+      };
+      
+      console.log("Forwarding to Web3Forms:", formData);
+      
+      // Forward the request to Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      // Get response as text first for logging
+      const responseText = await response.text();
+      console.log("Web3Forms response:", responseText);
+      
+      // Parse the response if it's JSON
+      let responseData;
+      try {
+        responseData = JSON.parse(responseText);
+      } catch (e) {
+        responseData = { success: false, message: responseText };
+      }
+      
+      // Return Web3Forms response
+      res.status(response.status).json(responseData);
+      
+    } catch (error) {
+      console.error("Web3Forms proxy error:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to forward request to Web3Forms" 
+      });
     }
   });
 
