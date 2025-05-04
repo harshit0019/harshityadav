@@ -32,12 +32,46 @@ export function AboutSection() {
         </motion.h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Mobile View layout - Order for mobile: Intro, Image, Content */}
+          <div className="lg:hidden space-y-6">
+            {/* Introduction - Mobile Only */}
+            <motion.p 
+              variants={fadeIn("left", 0.3)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
+              className="text-lg font-josefin text-gray-700 dark:text-gray-300"
+            >
+              Hey! I'm Harshit Yadav — part-time coder, full-time problem solver. I'm all about turning ideas into cool digital stuff 🌐💡.
+            </motion.p>
+            
+            {/* Image - Mobile Only */}
+            <motion.div 
+              variants={fadeIn("right", 0.3)}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <Tilt options={defaultTiltOptions} className="shadow-lg rounded-lg overflow-hidden max-w-xs mx-auto">
+                <div className="relative bg-gradient-to-tr from-primary/10 to-secondary/10 p-2 rounded-lg">
+                  <img
+                    src={profileImage}
+                    alt="Portrait of Harshit Yadav"
+                    className="w-full h-auto object-contain rounded-lg"
+                  />
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-tr from-primary/20 to-secondary/20 mix-blend-overlay"></div>
+                </div>
+              </Tilt>
+            </motion.div>
+          </div>
+
+          {/* Desktop Image - Hidden on Mobile */}
           <motion.div 
             variants={fadeIn("right", 0.3)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
-            className="order-2 lg:order-1"
+            className="order-2 lg:order-1 hidden lg:block"
           >
             <Tilt options={defaultTiltOptions} className="shadow-lg rounded-lg overflow-hidden max-w-md mx-auto lg:ml-auto">
               <div className="relative bg-gradient-to-tr from-primary/10 to-secondary/10 p-2 rounded-lg">
@@ -51,6 +85,7 @@ export function AboutSection() {
             </Tilt>
           </motion.div>
 
+          {/* Content */}
           <motion.div 
             variants={fadeIn("left", 0.3)}
             initial="hidden"
@@ -59,7 +94,8 @@ export function AboutSection() {
             className="order-1 lg:order-2"
           >
             <div className="space-y-6 font-josefin text-gray-700 dark:text-gray-300">
-              <p className="text-lg">
+              {/* Desktop Only Intro */}
+              <p className="text-lg hidden lg:block">
                 Hey! I'm Harshit Yadav — part-time coder, full-time problem solver. I'm all about turning ideas into cool digital stuff 🌐💡.
               </p>
               <p>

@@ -27,31 +27,31 @@ export function Footer() {
               Passionate software developer focused on creating engaging digital experiences 
               with clean code and modern technologies.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               <a
                 href="https://linkedin.com/in/harshitydv"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-100 dark:bg-gray-800 text-primary h-10 w-10 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
+                className="bg-gradient-to-br from-blue-500 to-primary text-white h-9 w-9 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-lg shadow-md"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-4 w-4" />
               </a>
               <a
                 href="https://github.com/harshit0019"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-100 dark:bg-gray-800 text-primary h-10 w-10 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
+                className="bg-gradient-to-br from-gray-800 to-gray-700 text-white h-9 w-9 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-lg shadow-md"
                 aria-label="GitHub"
               >
-                <Github className="h-5 w-5" />
+                <Github className="h-4 w-4" />
               </a>
               <a
                 href="mailto:yadavharshit1901@gmail.com"
-                className="bg-gray-100 dark:bg-gray-800 text-primary h-10 w-10 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-md"
+                className="bg-gradient-to-br from-red-500 to-orange-500 text-white h-9 w-9 rounded-full flex items-center justify-center transition transform hover:scale-110 hover:shadow-lg shadow-md"
                 aria-label="Email"
               >
-                <Mail className="h-5 w-5" />
+                <Mail className="h-4 w-4" />
               </a>
             </div>
           </motion.div>
@@ -73,7 +73,7 @@ export function Footer() {
                   href="#home"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center"
                 >
-                  <span className="bg-gray-200 dark:bg-gray-700 h-1.5 w-1.5 rounded-full inline-block mr-2"></span>
+                  <span className="bg-primary h-1 w-1 rounded-full inline-block mr-2"></span>
                   Home
                 </a>
               </li>
@@ -82,7 +82,7 @@ export function Footer() {
                   href="#about"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center"
                 >
-                  <span className="bg-gray-200 dark:bg-gray-700 h-1.5 w-1.5 rounded-full inline-block mr-2"></span>
+                  <span className="bg-primary h-1 w-1 rounded-full inline-block mr-2"></span>
                   About
                 </a>
               </li>
@@ -91,7 +91,7 @@ export function Footer() {
                   href="#skills"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center"
                 >
-                  <span className="bg-gray-200 dark:bg-gray-700 h-1.5 w-1.5 rounded-full inline-block mr-2"></span>
+                  <span className="bg-primary h-1 w-1 rounded-full inline-block mr-2"></span>
                   Skills
                 </a>
               </li>
@@ -100,7 +100,7 @@ export function Footer() {
                   href="#projects"
                   className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center"
                 >
-                  <span className="bg-gray-200 dark:bg-gray-700 h-1.5 w-1.5 rounded-full inline-block mr-2"></span>
+                  <span className="bg-primary h-1 w-1 rounded-full inline-block mr-2"></span>
                   Projects
                 </a>
               </li>
