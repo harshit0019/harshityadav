@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { fadeIn } from "@/lib/framer-animations";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -20,19 +21,6 @@ type NavbarProps = {
 export function Navbar({ activeSection }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    // Check if we're in a browser environment
-    if (typeof window !== 'undefined') {
-      // Check for stored theme preference
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme === 'light' || storedTheme === 'dark') {
-        return storedTheme;
-      }
-      // Check for system preference
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'light'; // Default theme
-  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,19 +36,8 @@ export function Navbar({ activeSection }: NavbarProps) {
     setIsMobileMenuOpen(false);
   }, [activeSection]);
 
-  // Update document class when theme changes
-  useEffect(() => {
-    document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -135,17 +112,7 @@ export function Navbar({ activeSection }: NavbarProps) {
               <circle cx="4" cy="4" r="2"></circle>
             </svg>
           </a>
-          <button
-            onClick={toggleTheme}
-            className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </button>
+          <ThemeToggle />
           <a
             href="#contact"
             className="hidden md:block primary-gradient text-white px-4 py-2 rounded-md font-medium transition transform hover:scale-105 hover:shadow-md"
