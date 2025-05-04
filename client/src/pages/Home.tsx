@@ -9,7 +9,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import InteractiveBackground from "@/components/ui/interactive-background";
+import InteractiveBackground from "@/components/ui/interactive-background-new";
 
 
 export default function Home() {
