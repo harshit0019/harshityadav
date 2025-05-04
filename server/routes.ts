@@ -12,6 +12,12 @@ const contactFormSchema = z.object({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Test endpoint
+  app.get('/api/test', (_req: Request, res: Response) => {
+    console.log('Test endpoint called');
+    res.status(200).json({ success: true, message: 'API is working!' });
+  });
+
   // Contact form endpoint with Web3Forms integration
   app.post('/api/contact', async (req: Request, res: Response) => {
     try {
