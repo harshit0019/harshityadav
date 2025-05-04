@@ -7,9 +7,9 @@
     <meta name="description" content="Portfolio of Harshit Yadav - Software Developer & Prompt Engineer building vibrant digital experiences through AI-powered prompt engineering and polished software development">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/src/assets/favicon.svg" />
-    <link rel="icon" type="image/png" href="/src/assets/favicon.png" />
-    <link rel="apple-touch-icon" href="/src/assets/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/src/assets/favicon-new.svg" />
+    <link rel="icon" type="image/png" href="/src/assets/favicon-new.png" />
+    <link rel="apple-touch-icon" href="/src/assets/favicon-new.png">
     <meta name="theme-color" content="#3B82F6">
     
     <!-- Open Graph Meta Tags for social sharing -->
@@ -21,6 +21,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600&family=Poppins:wght@700&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Dynamic Title Script -->
+    <script>
+      // Store the original title to restore it when tab gets focus
+      const originalTitle = document.title;
+      
+      // Alternative titles when user switches away
+      const altTitles = [
+        "👀 Hey, come back!",
+        "Don't ghost me...",
+        "Miss you already!",
+        "Still here waiting...",
+        "Something exciting awaits!"
+      ];
+      
+      // Get a random title from alternatives
+      function getRandomTitle() {
+        const randomIndex = Math.floor(Math.random() * altTitles.length);
+        return altTitles[randomIndex];
+      }
+      
+      // Listen for visibility change events
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          // User switched away from the tab
+          document.title = getRandomTitle();
+        } else {
+          // User returned to the tab
+          document.title = originalTitle;
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
