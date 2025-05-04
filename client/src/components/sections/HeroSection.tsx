@@ -65,10 +65,9 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <a 
-              href="https://drive.google.com/file/d/1kq91dr7uqTCLuG6JrETrKgD6nYCPl4B9/view?usp=sharing" 
+              href="https://drive.google.com/uc?export=download&id=1kq91dr7uqTCLuG6JrETrKgD6nYCPl4B9" 
               className="primary-gradient text-white px-6 py-3 rounded-md font-medium transition transform hover:scale-105 hover:shadow-md flex items-center gap-2 w-full sm:w-auto justify-center"
-              target="_blank"
-              rel="noopener noreferrer"
+              download="Harshit_Yadav_Resume.pdf"
             >
               <Download size={18} /> Download Resume
             </a>
