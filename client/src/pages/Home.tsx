@@ -10,7 +10,6 @@ import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import InteractiveBackground from "@/components/ui/interactive-background-new";
-import { ThemeProvider } from "@/components/theme-provider";
 
 
 export default function Home() {
