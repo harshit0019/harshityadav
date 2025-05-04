@@ -4,7 +4,6 @@
 
 @layer base {
   :root {
-    /* Core colors */
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --primary: 207 90% 59%;
@@ -31,14 +30,9 @@
     /* Light theme explicit colors */
     --light-bg: 0 0% 100%;
     --light-text: 215 14% 23%;
-    
-    /* Animation properties */
-    --theme-transition-duration: 0.7s;
-    --theme-transition-easing: cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
   .dark {
-    /* Core colors */
     --background: 240 10% 10%;
     --foreground: 0 0% 98%;
     --primary: 207 90% 59%;
@@ -64,10 +58,6 @@
     /* Dark theme explicit colors */
     --dark-bg: 240 10% 10%;
     --dark-text: 210 20% 90%;
-    
-    /* Animation properties kept the same for consistency */
-    --theme-transition-duration: 0.7s;
-    --theme-transition-easing: cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 }
 
@@ -86,22 +76,6 @@
     max-width: 100vw;
     margin: 0 !important;
     padding: 0 !important;
-    transition: color var(--theme-transition-duration) var(--theme-transition-easing), 
-                background-color var(--theme-transition-duration) var(--theme-transition-easing);
-  }
-
-  /* Global transition for all theme color changes */
-  *, *::before, *::after {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-    transition-duration: var(--theme-transition-duration);
-    transition-timing-function: var(--theme-transition-easing);
-  }
-
-  /* Elements that should not have the global transition */
-  .loader-circle, .loader-circle::before, .loader-circle::after,
-  .loader-shape, [class*="animate-"], [class*="motion-"], [class*="transition-"],
-  .floating-orb-1, .floating-orb-2, .floating-orb-3 {
-    transition-property: none;
   }
 
   body {
@@ -213,12 +187,10 @@
   align-items: center;
   z-index: 9999;
   overflow: hidden;
-  transition: background-color calc(var(--theme-transition-duration) * 1.2) var(--theme-transition-easing);
 }
 
 .dark .page-loader {
   background-color: #0f1219;
-  transition: background-color calc(var(--theme-transition-duration) * 1.2) var(--theme-transition-easing);
 }
 
 .loader-content {
@@ -228,55 +200,18 @@
   justify-content: center;
   position: relative;
   z-index: 5;
-  backdrop-filter: blur(5px);
-  padding: 2rem 3rem;
-  border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .loader-circle {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  border: 4px solid transparent;
+  border: 3px solid transparent;
   border-top-color: hsl(var(--primary));
   border-right-color: hsl(var(--secondary));
   border-bottom-color: hsl(var(--tertiary));
-  position: relative;
-  animation: spin 1s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
-  box-shadow: 
-    0 0 20px rgba(59, 130, 246, 0.4),
-    inset 0 0 12px rgba(59, 130, 246, 0.2);
-}
-
-.loader-circle::before,
-.loader-circle::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-}
-
-.loader-circle::before {
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-  border: 3px solid transparent;
-  border-top-color: hsl(var(--secondary));
-  border-left-color: hsl(var(--tertiary));
-  animation: spin 1.5s linear reverse infinite;
-}
-
-.loader-circle::after {
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-  border: 2px solid transparent;
-  border-top-color: hsl(var(--tertiary));
-  animation: spin 1s ease infinite;
+  animation: spin 0.8s linear infinite;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Animated background shapes */
@@ -293,10 +228,9 @@
 .loader-shape {
   position: absolute;
   border-radius: 50%;
-  filter: blur(15px);
-  opacity: 0.6;
+  filter: blur(8px);
+  opacity: 0.5;
   animation: float-shape 12s ease-in-out infinite;
-  transition: opacity 0.8s ease, background 0.8s ease, filter 0.8s ease;
 }
 
 .loader-shape-1 {
@@ -347,19 +281,15 @@
 @keyframes float-shape {
   0%, 100% {
     transform: translateY(0) translateX(0) rotate(0deg) scale(1);
-    filter: blur(15px) brightness(1);
   }
   25% {
-    transform: translateY(-30px) translateX(20px) rotate(5deg) scale(1.1);
-    filter: blur(18px) brightness(1.2);
+    transform: translateY(-30px) translateX(20px) rotate(5deg) scale(1.05);
   }
   50% {
-    transform: translateY(10px) translateX(-15px) rotate(10deg) scale(0.92);
-    filter: blur(12px) brightness(0.95);
+    transform: translateY(10px) translateX(-15px) rotate(10deg) scale(0.95);
   }
   75% {
-    transform: translateY(20px) translateX(10px) rotate(-5deg) scale(1.05);
-    filter: blur(16px) brightness(1.1);
+    transform: translateY(20px) translateX(10px) rotate(-5deg) scale(1.02);
   }
 }
 

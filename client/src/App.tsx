@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/components/theme-provider";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import { useState, useEffect } from "react";
@@ -39,6 +40,7 @@ function App() {
   }, []);
 
   return (
+    <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
@@ -87,59 +89,57 @@ function App() {
                 {/* Loader content */}
                 <div className="loader-content">
                   <motion.div 
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                    className="text-center mb-8"
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="text-center mb-6"
                   >
-                    <h3 className="text-3xl md:text-4xl font-bold gradient-text mb-3">Welcome</h3>
-                    <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-medium">Harshit Yadav's Portfolio</p>
+                    <h3 className="text-2xl font-bold gradient-text mb-2">Welcome</h3>
+                    <p className="text-gray-600 dark:text-gray-300">Harshit Yadav's Portfolio</p>
                   </motion.div>
                   <motion.div 
                     className="loader-circle"
-                    initial={{ scale: 0.8, opacity: 0.6 }}
+                    initial={{ scale: 0.8, opacity: 0.8 }}
                     animate={{ 
-                      scale: [0.8, 1.4, 0.8],
-                      opacity: [0.6, 1, 0.6],
-                      boxShadow: [
-                        "0 0 15px 5px rgba(59, 130, 246, 0.4)",
-                        "0 0 30px 15px rgba(59, 130, 246, 0.6)",
-                        "0 0 15px 5px rgba(59, 130, 246, 0.4)"
-                      ]
+                      scale: [0.8, 1.2, 0.8],
+                      opacity: [0.8, 1, 0.8],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 1.5,
                       ease: "easeInOut",
                       repeat: Infinity,
-                      repeatType: "loop",
-                      times: [0, 0.5, 1]
+                      repeatType: "loop"
                     }}
                   />
                   
                   {/* Code brackets animation */}
                   <motion.div 
-                    className="mt-10 text-4xl text-primary dark:text-primary font-mono"
+                    className="mt-8 text-3xl text-primary dark:text-primary"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
                   >
                     <motion.span
-                      initial={{ x: -30, opacity: 0 }}
+                      initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      transition={{ duration: 0.7, delay: 0.7, ease: "easeOut" }}
-                      className="text-primary relative inline-block"
-                      whileHover={{ scale: 1.2, color: "#3B82F6" }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
                     >
-                      <span className="relative z-10">{"{"}{"}"}</span>
-                      <span className="absolute inset-0 opacity-30 blur-sm z-0">{"{"}{"}"}</span>
+                      {"{"}
                     </motion.span>
                     <motion.span
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.7, delay: 1.0, ease: "easeOut" }}
-                      className="mx-3 text-gray-600 dark:text-gray-300 text-2xl"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.9 }}
+                      className="mx-1 text-gray-600 dark:text-gray-300 text-lg"
                     >
-                      developer
+                      code
+                    </motion.span>
+                    <motion.span
+                      initial={{ x: 20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
+                    >
+                      {"}"}
                     </motion.span>
                   </motion.div>
                 </div>
@@ -158,6 +158,7 @@ function App() {
           </AnimatePresence>
         </TooltipProvider>
       </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
