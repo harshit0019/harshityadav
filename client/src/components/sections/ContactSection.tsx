@@ -40,14 +40,37 @@ export function ContactSection() {
     setIsSubmitting(true);
     
     try {
-      await apiRequest("POST", "/api/contact", data);
+      // Using Web3Forms API
+      const formData = {
+        ...data,
+        access_key: "384d8768-c52f-4a1c-89f1-db67130a68c8",
+        from_name: data.name,
+        subject: data.subject,
+        botcheck: "",  // Honeypot field for spam prevention
+        redirect: window.location.origin + "/#contact", // Redirect back to contact form if JavaScript is disabled
+      };
       
-      form.reset();
-      toast({
-        title: "Message sent successfully!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-        variant: "default",
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        form.reset();
+        toast({
+          title: "Message sent successfully!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+          variant: "default",
+        });
+      } else {
+        throw new Error(result.message || "Something went wrong");
+      }
     } catch (error) {
       console.error(error);
       toast({
@@ -206,6 +229,9 @@ export function ContactSection() {
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                {/* Honeypot field to prevent spam */}
+                <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+                
                 <FormField
                   control={form.control}
                   name="name"

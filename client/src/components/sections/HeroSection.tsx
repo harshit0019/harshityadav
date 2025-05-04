@@ -65,9 +65,10 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <a 
-              href="/resume.pdf" 
+              href="https://drive.google.com/file/d/1kq91dr7uqTCLuG6JrETrKgD6nYCPl4B9/view?usp=sharing" 
               className="primary-gradient text-white px-6 py-3 rounded-md font-medium transition transform hover:scale-105 hover:shadow-md flex items-center gap-2 w-full sm:w-auto justify-center"
-              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Download size={18} /> Download Resume
             </a>
