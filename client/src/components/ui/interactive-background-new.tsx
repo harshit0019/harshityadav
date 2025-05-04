@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '@/hooks/use-theme';
 
 type Particle = {
   x: number;
@@ -35,6 +36,7 @@ type CursorRing = {
 };
 
 export default function InteractiveBackground() {
+  const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
   const [cursorRing, setCursorRing] = useState<CursorRing>({
@@ -236,7 +238,7 @@ export default function InteractiveBackground() {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [theme]);
   
   // Animation loop
   useEffect(() => {
