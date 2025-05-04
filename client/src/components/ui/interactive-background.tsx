@@ -37,6 +37,7 @@ type CursorRing = {
 
 export default function InteractiveBackground() {
   // Use static colors for simplicity
+  const { theme } = useTheme();
   const primaryColor = '#3B82F6'; // Blue
   const secondaryColor = '#8B5CF6'; // Purple
   const accentColor = '#06B6D4'; // Cyan

@@ -52,6 +52,40 @@ function App() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6 }}
               >
+                {/* Animated background elements */}
+                <div className="loading-background">
+                  <motion.div 
+                    className="bg-orb bg-orb-1"
+                    initial={{ scale: 0, opacity: 0, x: -100, y: -100 }}
+                    animate={{ scale: 1, opacity: 0.4, x: 0, y: 0 }}
+                    transition={{ duration: 1.5, delay: 0.2 }}
+                  />
+                  <motion.div 
+                    className="bg-orb bg-orb-2"
+                    initial={{ scale: 0, opacity: 0, x: 100, y: 100 }}
+                    animate={{ scale: 1, opacity: 0.5, x: 0, y: 0 }}
+                    transition={{ duration: 1.5, delay: 0.4 }}
+                  />
+                  <motion.div 
+                    className="bg-orb bg-orb-3"
+                    initial={{ scale: 0, opacity: 0, x: 100, y: -100 }}
+                    animate={{ scale: 1, opacity: 0.4, x: 0, y: 0 }}
+                    transition={{ duration: 1.5, delay: 0.6 }}
+                  />
+                  <motion.div 
+                    className="bg-orb bg-orb-4"
+                    initial={{ scale: 0, opacity: 0, x: -100, y: 100 }}
+                    animate={{ scale: 1, opacity: 0.5, x: 0, y: 0 }}
+                    transition={{ duration: 1.5, delay: 0.8 }}
+                  />
+                  <motion.div 
+                    className="bg-particles"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.3 }}
+                    transition={{ duration: 2, delay: 1 }}
+                  />
+                </div>
+                
                 {/* Modern code-themed loading animation */}
                 <div className="code-loader-container">
                   <motion.div 
