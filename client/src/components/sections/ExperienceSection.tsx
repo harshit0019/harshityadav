@@ -8,10 +8,10 @@ export function ExperienceSection() {
       title: "Associate Programmer | RMX Joss",
       period: "July 2024 – Present",
       responsibilities: [
-        "Developed Carbon Emissions Tracker (Python, Tkinter, MS SQL, ChatGPT) automating scope 1–2 reporting",
-        "Trained in SAP Business One, wrote SQL for operational data analysis",
-        "Led data integration: merged weekly reports → single Google Sheet → Power BI dashboard (–70% prep time)",
-        "Built Merchant Dashboard in Power BI pulling from SAP DB"
+        "Developed and lead a Carbon Emissions Tracker software using Python, Tkinter, MS SQL Server, prompt engineering and AI tools like ChatGPT. Built to automate emission tracking and reporting for Scope 1 and Scope 2 (Scope 3 in progress), supporting sustainability goals and ESG compliance.",
+        "Trained in SAP Business One, resolving queries and writing SQL queries using Microsoft SQL Server to extract and analyze operational data.",
+        "Led a data integration and automation project: consolidated multiple weekly reports into a single Google Sheet and linked sheets, integrating them into a Power BI dashboard for real-time visualization reducing report preparation time by 70% .",
+        "Developed and implemented a Merchant Dashboard in Power BI, integrating order details and BOM data from SAP Business One (MS SQL Server) with interactive visualizations."
       ]
     },
     {

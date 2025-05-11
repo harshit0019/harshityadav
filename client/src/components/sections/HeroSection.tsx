@@ -115,7 +115,7 @@ export function HeroSection() {
             </a>
             <a 
               href="#contact" 
-              className="bg-transparent text-primary dark:text-primary border-2 border-primary px-6 py-3 rounded-md font-medium transition transform hover:scale-105 hover:bg-primary hover:text-white flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="bg-transparent text-primary border-2 border-primary px-6 py-3 rounded-md font-medium transition transform hover:scale-105 hover:bg-primary hover:text-white dark:hover:text-white flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               <Mail size={18} /> Contact Me
             </a>
@@ -174,10 +174,10 @@ export function HeroSection() {
               transition: { duration: 0.7, delay: 1.4 } 
             }}
             href="#about" 
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-primary animate-bounce"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-primary animate-bounce"
             aria-label="Scroll down"
           >
-            <ArrowDown className="h-8 w-8" />
+            <ArrowDown className="h-8 w-8 block mx-auto" />
           </motion.a>
         </div>
       </div>

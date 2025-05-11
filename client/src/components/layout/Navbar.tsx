@@ -28,8 +28,8 @@ export function Navbar({ activeSection }: NavbarProps) {
       if (storedTheme === 'light' || storedTheme === 'dark') {
         return storedTheme;
       }
-      // Check for system preference
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      // Default to light theme for first-time visitors
+      return 'light';
     }
     return 'light'; // Default theme
   });
@@ -110,12 +110,12 @@ export function Navbar({ activeSection }: NavbarProps) {
         </ul>
 
         {/* Right Side Items */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <a
             href="https://github.com/harshit0019"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition"
+            className="flex items-center justify-center h-8 w-8 text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition flex-shrink-0"
             aria-label="GitHub"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -126,7 +126,7 @@ export function Navbar({ activeSection }: NavbarProps) {
             href="https://linkedin.com/in/harshitydv"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition"
+            className="flex items-center justify-center h-8 w-8 text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition flex-shrink-0"
             aria-label="LinkedIn"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -137,26 +137,26 @@ export function Navbar({ activeSection }: NavbarProps) {
           </a>
           <button
             onClick={toggleTheme}
-            className="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition"
+            className="flex items-center justify-center h-8 w-8 text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition flex-shrink-0"
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
+            <motion.span
+              key={theme}
+              initial={{ rotate: 0, scale: 1 }}
+              animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
+              style={{ display: 'inline-block' }}
+            >
+              {theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </motion.span>
           </button>
-          <a
-            href="#contact"
-            className="hidden md:block primary-gradient text-white px-4 py-2 rounded-md font-medium transition transform hover:scale-105 hover:shadow-md"
-          >
-            Contact
-          </a>
-
-          {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className="md:hidden text-gray-800 dark:text-gray-200"
+            className="md:hidden flex items-center justify-center h-8 w-8 text-gray-800 dark:text-gray-200"
             aria-label="Menu"
           >
             {isMobileMenuOpen ? (
